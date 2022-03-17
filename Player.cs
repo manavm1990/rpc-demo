@@ -5,24 +5,43 @@ namespace RockPaperScissorsDemo
 {
     public class Player
     {
+        private readonly Random _random = new Random();
         public string Name { get; }
         public PlayerType TypeOfPlayer { get; }
-        public ShootChoice Choice { get; set; }
+        public ShootChoice? Choice { get; set; }
 
-        public Player(string name, PlayerType pt) // PlayerType...
+        public Player(string name, PlayerType pt)
         {
             Name = name;
             TypeOfPlayer = pt;
 
-            // TODO: Go ahead with giving the ShootChoice whenever possible from the PlayerType
-            // TODO: Actually use the enum names for clarity
-            // TODO: Alternative syntax for switch statements
-            switch ((int)pt)
+            switch (pt)
             {
-                case 1:
+                case PlayerType.Random:
+                {
+                    Choice = (ShootChoice) _random.Next(1, 4);
+                    break;
+                }
+                case PlayerType.Rock:
+                {
                     Choice = ShootChoice.Rock;
                     break;
-                default
+                }
+                case PlayerType.Paper:
+                {
+                    Choice = ShootChoice.Paper;
+                    break;
+                }
+                case PlayerType.Scissors:
+                {
+                    Choice = ShootChoice.Scissors;
+                    break;
+                }
+                default:
+                {
+                    Choice = null;
+                    break;
+                }
             }
         }
     }
